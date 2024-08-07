@@ -1,15 +1,12 @@
 import Footer from "../../components/Footer"
-import Header from "../../components/Header"
-import CardPost from "../../components/CardPost"
 
 import Animation from "../../assets/Animation.json";
 import Lottie from "lottie-react";
+import CardList from "@/components/CardList";
 
 export default function Home() {
   return (
     <div className="bg-red-200">
-      
-      <Header/>
 
       <main className="bg-gray-200">
         <section className=" bg-gradient-to-r from-violet-500 to-indigo-500 text-gray-200">
@@ -23,17 +20,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="max-w-[1000px] mx-auto py-8 px-8">
-          <h1 className="text-[48px] font-semibold mb-8">Postagens</h1>
+        <CardList/>
 
-          <div className="flex gap-3 flex-wrap">
-            <CardPost />
-            <CardPost />
-            <CardPost />
-          </div>
-
-        </section>
       </main>
+
       <Footer/>
     </div>
   )
