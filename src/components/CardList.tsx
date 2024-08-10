@@ -9,6 +9,9 @@ function CardList() {
         <CardPost />
         <CardPost />
         <CardPost />
+        <CardPost />
+        <CardPost />
+        <CardPost />
       </div>
 
     </section>
