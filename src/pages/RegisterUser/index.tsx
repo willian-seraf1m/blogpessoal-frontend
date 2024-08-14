@@ -121,7 +121,7 @@ export default function RegisterUser() {
           <button type="submit" className="bg-indigo-500 text-gray-100 py-2 px-4 rounded-md my-4">
             Cadastrar
           </button>
-          <p className="text-center">Já tem uma conta? <Link to="/login" className="text-indigo-500 dark:text-indigo-400">Faça login</Link></p>
+          <p className="text-center">Já tem uma conta? <Link to="/login" className="text-indigo-500 dark:text-indigo-400 font-semibold">Faça login</Link></p>
         </form>
       </div>
     </div>

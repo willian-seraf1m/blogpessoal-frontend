@@ -8,7 +8,7 @@ export default function CardPost() {
         <span>Willian Serafim</span>
       </div>
       <div className="bg-gray-100 p-3 dark:bg-gray-800">
-        <h1 className="font-bold">Props e Hooks no React</h1>
+        <h2 className="font-bold">Props e Hooks no React</h2>
         <p className="my-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, soluta sequi?</p>
         <span className="bg-indigo-200 px-2 py-0 rounded-md inline-block text-sm dark:bg-indigo-400/50">
           tema react

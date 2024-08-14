@@ -2,22 +2,24 @@ import Footer from "../../components/Footer"
 
 import Animation from "../../assets/Animation.json";
 import Lottie from "lottie-react";
-import CardList from "@/components/CardList";
+import PostList from "@/components/PostList";
 import { useContext } from "react";
-import { UserContext } from "@/contexts/ContextUser";
+import { AuthContext } from "@/contexts/AuthContext";
+import Header from "@/components/Header";
 
 export default function Home() {
-  const { nome } = useContext(UserContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <div>
+      <Header/>
 
       <main className="bg-gray-200 dark:bg-gray-800">
         <section className=" bg-gradient-to-r from-violet-500 to-indigo-500 text-gray-200">
           <div className="max-w-[1000px] px-8 mx-auto flex justify-between items-center h-96">
             <div>
               <h1 className="text-[48px] font-semibold">
-                Olá, {nome.split(" ")[0]}
+                Olá, {user.nome.split(" ")[0]}
               </h1>
               <p className="text-lg">
                 O que você está pensando hoje?
@@ -31,7 +33,7 @@ export default function Home() {
           </div>
         </section>
 
-        <CardList/>
+        <PostList/>
 
       </main>
 

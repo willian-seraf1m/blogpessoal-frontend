@@ -4,7 +4,7 @@ import UserLogin from "../models/UserLogin";
 import { login } from "../services/Service";
 
 interface AuthContextProps {
-  usuario: UserLogin
+  user: UserLogin
   handleLogout(): void
   handleLogin(usuario: UserLogin): Promise<void>
   isLoading: boolean
@@ -18,7 +18,7 @@ export const AuthContext = createContext({} as AuthContextProps)
 
 export function AuthProvider({ children }: AuthProviderProps) {
 
-  const [usuario, setUsuario] = useState<UserLogin>({
+  const [user, setUser] = useState<UserLogin>({
       id: 0,
       nome: "",
       usuario: "",
@@ -32,19 +32,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function handleLogin(userLogin: UserLogin) {
       setIsLoading(true)
       try {
-          await login(`/usuarios/logar`, userLogin, setUsuario)
-          alert("Usuário logado com sucesso")
+          await login(`/usuarios/logar`, userLogin, setUser)
           setIsLoading(false)
 
       } catch (error) {
           console.log(error)
-          alert("Dados do usuário inconsistentes")
+          alert("Dados do usuário inconsistentes" + error)
           setIsLoading(false)
       }
   }
 
   function handleLogout() {
-      setUsuario({
+      setUser({
           id: 0,
           nome: "",
           usuario: "",
@@ -55,7 +54,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-      <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, isLoading }}>
+      <AuthContext.Provider value={{ user, handleLogin, handleLogout, isLoading }}>
           {children}
       </AuthContext.Provider>
   )
