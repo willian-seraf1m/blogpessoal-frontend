@@ -30,6 +30,6 @@ export const update = async(url: string, dados: Object, setDados: Function, head
   setDados(response.data)
 }
 
-export const deletar = async(url: string, header: Object) => {
+export const deleteItems = async(url: string, header: Object) => {
   await api.delete(url, header)
 }

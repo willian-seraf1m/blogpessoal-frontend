@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Link, useNavigate } from "react-router-dom";
-import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from "./ui/mode-toggle";
 import { useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 
