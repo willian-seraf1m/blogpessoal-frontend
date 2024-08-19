@@ -2,8 +2,18 @@ import Post from "@/models/Post"
 import { Edit2Icon, User2Icon} from "lucide-react"
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from "date-fns/locale/pt-BR";
-import DeleteAction from "./DeleteAction";
-import { PostModalForm } from "./PostModalForm";
+import DeleteAction from "../DeleteAction";
+import { PostModalForm } from "../Post/PostModalForm";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 interface postCardProps {
   post: Post
@@ -21,25 +31,41 @@ export default function PostCard({post}: postCardProps) {
         <div className="flex gap-2 items-center">
           <span>
             {post.usuario?.foto
-            ? <img src={post.usuario?.foto} className="rounded-full max-w-[32px] h-[32px] object-cover"/>
+            ? <img src={post.usuario?.foto} className="rounded-full w-[32px] h-[32px] object-cover"/>
             : <User2Icon size={32} className="bg-gray-100 p-1 rounded-full dark:bg-gray-700"/>}
           </span>
-          <span>{post.usuario?.nome}</span>
+          <span className="font-semibold">
+            {post.usuario?.nome}
+          </span>
         </div>
-        <span className="text-sm text-gray-400">
+        <span className="text-sm font-semibold dark:text-gray-400">
          {publishedDateRelativeToNow}
         </span>
       </div>
 
-      <div className="bg-gray-100 dark:bg-gray-800 overflow-hidden relative dark:border-y dark:border-gray-800">
-        <h2 className="font-bold p-3">
+      <div className="h-48 border-y bg-gray-100 dark:bg-gray-800 overflow-hidden relative dark:border-gray-800">
+        <Dialog>
+          <DialogTrigger className="cursor-pointer text-start">
+          <h2 className="font-bold p-3">
           {post.titulo}
-        </h2>
-        <p className="px-3 h-[100px]">
-          {post.texto}
-        </p>
+          </h2>
+          <p className="px-3 h-[100px]">
+            {post.texto}
+          </p>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="mb-4">
+                {post.titulo}
+              </DialogTitle>
+              <DialogDescription>
+                {post.texto}
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
         <div 
-          className="bg-gradient-to-t from-indigo-300 to-gray-400/0 p-3 absolute bottom-0 left-0 right-0 dark:bg-gradient-to-t dark:from-gray-900 dark:to-gray-900/0">
+          className="bg-gradient-to-t from-indigo-200 to-gray-400/0 p-3 absolute bottom-0 left-0 right-0 dark:bg-gradient-to-t dark:from-gray-900 dark:to-gray-900/0">
         </div>
       </div>
       
@@ -48,7 +74,7 @@ export default function PostCard({post}: postCardProps) {
           #{post.tema?.descricao}
         </span>
         <div>
-          <button className="py-1 px-2 bg-gray-100 rounded-md mr-1 hover:text-indigo-500 duration-200 dark:bg-gray-800">
+          <button className=" py-1 px-2 bg-gray-100 rounded-md mr-1 hover:text-indigo-500 duration-200 dark:bg-gray-800">
             <PostModalForm 
               postID={post.id}
               icon={Edit2Icon}

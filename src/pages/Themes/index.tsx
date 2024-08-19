@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import ThemeList from "@/components/ThemeList";
-import ThemeForm from "@/components/ThemeForm";
+import ThemeList from "@/pages/Themes/components/ThemeList";
+import ThemeForm from "@/pages/Themes/components/ThemeForm";
 
 export default function Themes() {
   return (

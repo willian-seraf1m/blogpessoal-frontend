@@ -1,6 +1,7 @@
 import { AuthContext } from "@/contexts/AuthContext";
 import Theme from "@/models/Theme";
 import { register, search } from "@/services/Service";
+import { toastAlerta } from "@/utils/toastAlerta";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -45,21 +46,21 @@ export default function ThemeForm() {
         }
       })
   
-      alert('Tema cadastrado com sucesso')
+      toastAlerta('Tema cadastrado com sucesso','sucesso')
 
     } catch (error: unknown) {
       if (error instanceof Error && error.toString().includes('403')) {
-        alert('O token expirou, favor logar novamente')
+        toastAlerta('O token expirou, favor logar novamente', 'info')
         handleLogout()
       } else {
-        alert('Erro ao cadastrado o Tema')
+        toastAlerta('Erro ao cadastrado o Tema', 'erro')
       }
     }
   }
 
   useEffect(() => {
     if (token === '') {
-      alert('Você precisa estar logado');
+      toastAlerta('Você precisa estar logado', 'info');
       navigate('/login');
     }
   }, [navigate, token]);

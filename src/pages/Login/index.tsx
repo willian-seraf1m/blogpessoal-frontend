@@ -46,9 +46,9 @@ export default function Login() {
           <label htmlFor="usuario">Usuario</label>
           <input 
             type="text" 
+            autoComplete="username"
             id="usuario"
             name="usuario"
-            value={userLogin.usuario}
             onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
             className="mb-4 py-2 px-4 rounded-md dark:bg-gray-900"
           />
@@ -56,9 +56,9 @@ export default function Login() {
           <label htmlFor="">Senha</label>
           <input
             type="password" 
+            autoComplete="current-password"
             name="senha" 
             id="senha" 
-            value={userLogin.senha}
             onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
             className="mb-4 py-2 px-4 rounded-md dark:bg-gray-900"/>
 

@@ -1,6 +1,6 @@
 import Theme from "@/models/Theme";
-import DeleteAction from "./DeleteAction";
-import EditItems from "./EditTheme";
+import DeleteAction from "../../../components/DeleteAction";
+import EditTheme from "./EditTheme";
 
 interface themeItemsProps {
   theme: Theme
@@ -15,10 +15,10 @@ export default function ThemeCard({theme}: themeItemsProps) {
       </div>
       <div className="flex gap-2">
         <button>
-            <EditItems themeID={theme.id}/>
+            <EditTheme themeID={theme.id}/>
         </button>
 
-        <button>
+        <button className="flex justify-center items-center bg-gray-300 text-gray-600 dark:text-gray-400 p-2 rounded-full hover:text-red-500 dark:bg-gray-900">
           <DeleteAction 
             url={"/temas/"} 
             item={theme} 

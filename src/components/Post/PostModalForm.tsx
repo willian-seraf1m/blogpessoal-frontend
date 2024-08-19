@@ -9,16 +9,19 @@ import { AuthContext } from "@/contexts/AuthContext";
 import Post from "@/models/Post";
 import Theme from "@/models/Theme";
 import { register, search, update } from "@/services/Service";
+import { toastAlerta } from "@/utils/toastAlerta";
+import { DialogDescription } from "@radix-ui/react-dialog";
 import { LucideIcon } from "lucide-react"
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface postModalFromProps {
   icon: LucideIcon
+  textButton?: string
   postID?: number
 }
 
-export function PostModalForm({icon: Icon, postID}: postModalFromProps) {
+export function PostModalForm({icon: Icon, textButton, postID}: postModalFromProps) {
   const navigate = useNavigate();
 
   const id = postID?.toString();
@@ -68,7 +71,7 @@ export function PostModalForm({icon: Icon, postID}: postModalFromProps) {
 
   useEffect(() => {
     if (token === '') {
-      alert('Você precisa estar logado');
+      toastAlerta('Você precisa estar logado', 'info');
       navigate('/');
     }
   }, [token]);
@@ -77,8 +80,6 @@ export function PostModalForm({icon: Icon, postID}: postModalFromProps) {
     searchThemes();
     if (id !== undefined) {
       searchPostByID(id);
-      console.log(theme);
-
     }
   }, [id]);
 
@@ -101,8 +102,6 @@ export function PostModalForm({icon: Icon, postID}: postModalFromProps) {
   async function generateNewPost(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    console.log({ post });
-
     if (id != undefined) {
       try {
         await update(`/postagens`, post, setPost, {
@@ -110,13 +109,13 @@ export function PostModalForm({icon: Icon, postID}: postModalFromProps) {
             Authorization: token,
           },
         });
-        alert('Postagem atualizada com sucesso');
+        toastAlerta('Post atualizado com sucesso', 'sucesso')
       } catch (error: unknown) {
         if (error instanceof Error && error.toString().includes('403')) {
-          alert('O token expirou, favor logar novamente')
+          toastAlerta('O token expirou, favor logar novamente', 'info')
           handleLogout()
         } else {
-          alert('Erro ao atualizar a Postagem');
+          toastAlerta('Erro ao atualizar post', 'erro')
         }
       }
     } else {
@@ -127,13 +126,13 @@ export function PostModalForm({icon: Icon, postID}: postModalFromProps) {
           },
         });
 
-        alert('Postagem cadastrada com sucesso');
+        toastAlerta('Post criado', 'sucesso')
       } catch (error: unknown) {
         if (error instanceof Error && error.toString().includes('403')) {
-          alert('O token expirou, favor logar novamente')
+          toastAlerta('O token expirou, favor logar novamente', 'info')
           handleLogout()
         } else {
-          alert('Erro ao cadastrar a Postagem');
+          toastAlerta('Erro ao cadastar post', 'erro')
         }
       }
     }
@@ -144,13 +143,17 @@ export function PostModalForm({icon: Icon, postID}: postModalFromProps) {
   return (
     <Dialog>
       <DialogTrigger>
-        <span>
+        <span className="flex gap-2 items-center">
+          {textButton}
           {Icon && <Icon />}
         </span>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Crie seu novo post</DialogTitle>
+          <DialogDescription>
+            Escreva o que você está pensando.
+          </DialogDescription>
         </DialogHeader>
         <form 
           onSubmit={generateNewPost}
@@ -158,33 +161,34 @@ export function PostModalForm({icon: Icon, postID}: postModalFromProps) {
           className="flex flex-col">
           <label htmlFor="">titulo</label>
           <input 
+            value={post.titulo}
             type="text" 
             onChange={updateState}
             name="titulo"
             required
-            className="p-2 rounded-md bg-gray-800"/>
+            className="p-2 rounded-md bg-gray-200 dark:bg-gray-800"/>
 
           <label htmlFor="">texto</label>
           <input 
             value={post.texto}
             onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
+            type="text"
             name="texto"
             required
-            type="text" 
-            className="p-2 rounded-md bg-gray-800 h-28"/>
+            className="p-2 rounded-md bg-gray-200 dark:bg-gray-800 h-28"/>
 
           <label htmlFor="">tema</label>
           <select
             onChange={(e) => searchThemeByID(e.currentTarget.value)}
-            className="p-2 rounded-md bg-gray-800">
+            className="p-2 rounded-md bg-gray-200 dark:bg-gray-800">
               <option value="">Selecione um tema</option>
               {themes.map((theme) => (
-                <option value={theme.id}>{theme.descricao}</option>
+                <option key={theme.id} value={theme.id}>{theme.descricao}</option>
               ))}
           </select>
 
-          <button disabled={loadingTheme} type="submit" className="bg-indigo-500 p-2 rounded-md mt-4">
-            {loadingTheme ? <span>Carregando</span> : id !== undefined ? "Editar" : "Cadastrar"}
+          <button disabled={loadingTheme} type="submit" className="flex justify-center bg-indigo-500 p-2 rounded-md mt-4 disabled:bg-indigo-400/80 disabled:cursor-not-allowed">
+            {loadingTheme && id !== undefined ? "Editar" : "Cadastrar"}
           </button>
         </form>
       </DialogContent>

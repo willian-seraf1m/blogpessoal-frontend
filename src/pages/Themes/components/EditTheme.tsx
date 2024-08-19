@@ -9,6 +9,7 @@ import {
 import { AuthContext } from "@/contexts/AuthContext";
 import Theme from "@/models/Theme";
 import { search, update } from "@/services/Service";
+import { toastAlerta } from "@/utils/toastAlerta";
 import { Check, Edit2Icon } from "lucide-react"
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -59,14 +60,14 @@ export default function EditItems({themeID}: editThemeProps) {
           }
         })
 
-        alert('Tema atualizado com sucesso')
+        toastAlerta('Tema atualizado com sucesso', 'sucesso')
 
       } catch (error: unknown) {
         if (error instanceof Error && error.toString().includes('403')) {
-          alert('O token expirou, favor logar novamente')
+          toastAlerta('O token expirou, favor logar novamente', 'info')
           handleLogout()
         } else {
-          alert('Erro ao atualizar o Tema')
+          toastAlerta('Erro ao atualizar o Tema', 'erro')
         }
 
       }
@@ -76,15 +77,15 @@ export default function EditItems({themeID}: editThemeProps) {
 
   useEffect(() => {
     if (token === '') {
-      alert('Você precisa estar logado');
+      toastAlerta('Você precisa estar logado', 'info');
       navigate('/login');
     }
   }, [token]);
 
   return (
     <Dialog>
-    <DialogTrigger className="bg-gray-900 text-gray-400 p-2 rounded-full">
-      <Edit2Icon size={16}/>
+    <DialogTrigger className="text-gray-600 bg-gray-300 dark:bg-gray-900 dark:text-gray-400 p-2 rounded-full hover:text-indigo-500">
+      <Edit2Icon size={22}/>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>

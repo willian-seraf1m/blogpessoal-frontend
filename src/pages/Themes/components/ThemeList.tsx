@@ -1,12 +1,13 @@
 import {CopyX} from "lucide-react";
 
 import Theme from "@/models/Theme";
-import ThemeCard from "./ThemeItem";
+import ThemeItem from "../components/ThemeItem";
 
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@/contexts/AuthContext";
 import { search } from "@/services/Service";
 import { useContext, useEffect, useState } from "react";
+import { toastAlerta } from "@/utils/toastAlerta";
 
 export default function ThemeList() {
   const [themes, setThemes] = useState<Theme[]>([]);
@@ -30,7 +31,7 @@ export default function ThemeList() {
         });
       } catch (error: unknown) {
         if (error instanceof Error && error.toString().includes('403')) {
-          alert('O token expirou, favor logar novamente')
+          toastAlerta('O token expirou, favor logar novamente', 'info')
           handleLogout()
         }
       }
@@ -41,7 +42,7 @@ export default function ThemeList() {
 
   return (
     <section className="max-w-[1000px] mx-auto">
-      <h1 className="text-3xl text-gray-200 mb-6">Temas</h1>
+      <h1 className="text-3xl dark:text-gray-200 mb-6">Temas</h1>
 
       <div className="flex gap-2 flex-wrap">
         {
@@ -51,7 +52,7 @@ export default function ThemeList() {
             <CopyX/>
           </div>
           : themes.map((theme) => (
-          <ThemeCard key={theme.id} theme={theme}/>
+          <ThemeItem key={theme.id} theme={theme}/>
         ))}
       </div>
     </section>

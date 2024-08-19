@@ -17,6 +17,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { deleteItems } from "@/services/Service";
 import Theme from "@/models/Theme";
 import Post from "@/models/Post";
+import { toastAlerta } from "@/utils/toastAlerta";
 
 interface deleteActionProps {
   url: string;
@@ -38,10 +39,12 @@ export default function DeleteAction({url, item, text}: deleteActionProps) {
           }
       })
   
-      alert(' Apagado com sucesso')
+      toastAlerta('Apagado com sucesso', 'sucesso')
+
   
     } catch (error) {
-        alert('Erro ao apagar')
+      toastAlerta('Erro ao excluir', 'erro')
+
     }
   }
 

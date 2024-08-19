@@ -1,5 +1,6 @@
 import User from "@/models/User";
 import { registerUser } from "@/services/Service";
+import { toastAlerta } from "@/utils/toastAlerta";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -53,14 +54,14 @@ export default function RegisterUser() {
 
       try {
         await registerUser(`/usuarios/cadastrar`, usuario, setUserResponse)
-        alert('Usuário cadastrado com sucesso')
+        toastAlerta('Usuário cadastrado com sucesso', 'sucesso')
 
       } catch (error) {
-        alert('Erro ao cadastrar o Usuário')
+        toastAlerta('Erro ao cadastrar o Usuário', 'erro')
       }
 
     } else {
-      alert('Dados inconsistentes. Verifique as informações de cadastro.')
+      toastAlerta('Dados inconsistentes. Verifique as informações de cadastro.', 'info')
       setUser({ ...usuario, senha: "" }) 
       setConfirmPassword("")
     }
