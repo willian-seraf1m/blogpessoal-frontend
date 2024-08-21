@@ -8,21 +8,19 @@ import {
 import { AuthContext } from "@/contexts/AuthContext";
 import Post from "@/models/Post";
 import Theme from "@/models/Theme";
-import { register, search } from "@/services/Service";
+import { search, update } from "@/services/Service";
 import { toastAlerta } from "@/utils/toastAlerta";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { LucideIcon } from "lucide-react"
+import { Edit2Icon } from "lucide-react";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface postModalFromProps {
-  icon: LucideIcon
-  textButton?: string
   postID?: number
   searchPostagens: () => void
 }
 
-export function PostModalForm({icon: Icon, textButton, postID, searchPostagens}: postModalFromProps) {
+export function PostEditForm({ postID, searchPostagens}: postModalFromProps) {
   const navigate = useNavigate();
 
   const id = postID?.toString();
@@ -37,7 +35,14 @@ export function PostModalForm({icon: Icon, textButton, postID, searchPostagens}:
     descricao: '',
   });
 
-  const [post, setPost] = useState<Post>({} as Post);
+  const [post, setPost] = useState<Post>({
+    id: 0,
+    titulo: '',
+    texto: '',
+    data: '',
+    tema: null,
+    usuario: null,
+  });
 
   async function searchPostByID(id: string) {
     await search(`/postagens/${id}`, setPost, {
@@ -93,24 +98,26 @@ export function PostModalForm({icon: Icon, textButton, postID, searchPostagens}:
     });
   }
 
-  async function generateNewPost(e: ChangeEvent<HTMLFormElement>) {
+  async function updatePost(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    try {
-      await register(`/postagens`, post, setPost, {
-        headers: {
-          Authorization: token,
-        },
-      });
+    if (id != undefined) {
+      try {
+        await update(`/postagens`, post, setPost, {
+          headers: {
+            Authorization: token,
+          },
+        });
 
-      searchPostagens()
-      toastAlerta('Post criado', 'sucesso')
-    } catch (error: unknown) {
-      if (error instanceof Error && error.toString().includes('403')) {
-        toastAlerta('O token expirou, favor logar novamente', 'info')
-        handleLogout()
-      } else {
-        toastAlerta('Erro ao cadastar post', 'erro')
+        searchPostagens()
+        toastAlerta('Post atualizado com sucesso', 'sucesso')
+      } catch (error: unknown) {
+        if (error instanceof Error && error.toString().includes('403')) {
+          toastAlerta('O token expirou, favor logar novamente', 'info')
+          handleLogout()
+        } else {
+          toastAlerta('Erro ao atualizar post', 'erro')
+        }
       }
     }
   }
@@ -120,9 +127,8 @@ export function PostModalForm({icon: Icon, textButton, postID, searchPostagens}:
   return (
     <Dialog>
       <DialogTrigger>
-        <span className="flex gap-2 items-center">
-          {textButton}
-          {Icon && <Icon />}
+        <span className="text-gray-600 flex gap-2 justify-center items-center dark:text-gray-300">
+          <Edit2Icon/>
         </span>
       </DialogTrigger>
       <DialogContent>
@@ -133,12 +139,12 @@ export function PostModalForm({icon: Icon, textButton, postID, searchPostagens}:
           </DialogDescription>
         </DialogHeader>
         <form 
-          onSubmit={generateNewPost}
+          onSubmit={updatePost}
           action=""
           className="flex flex-col">
           <label htmlFor="">titulo</label>
           <input 
-            value={post.titulo || ""}
+            value={post.titulo}
             type="text" 
             onChange={updateState}
             name="titulo"
@@ -147,7 +153,7 @@ export function PostModalForm({icon: Icon, textButton, postID, searchPostagens}:
 
           <label htmlFor="">texto</label>
           <input 
-            value={post.texto || ""}
+            value={post.texto}
             onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
             type="text"
             name="texto"
@@ -165,7 +171,7 @@ export function PostModalForm({icon: Icon, textButton, postID, searchPostagens}:
           </select>
 
           <button disabled={loadingTheme} type="submit" className="flex justify-center bg-indigo-500 p-2 rounded-md mt-4 disabled:bg-indigo-400/80 disabled:cursor-not-allowed">
-            {loadingTheme && id !== undefined ? "Editar" : "Cadastrar"}
+            Editar
           </button>
         </form>
       </DialogContent>

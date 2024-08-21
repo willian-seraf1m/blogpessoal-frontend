@@ -4,9 +4,10 @@ import EditTheme from "./EditTheme";
 
 interface themeItemsProps {
   theme: Theme
+  searchThemes: () => void
 }
 
-export default function ThemeCard({theme}: themeItemsProps) {
+export default function ThemeCard({theme, searchThemes}: themeItemsProps) {
   return (
     <div className="flex-1 min-w-[300px] max-w-80 flex justify-between items-center gap-4 bg-gray-200 py-2 px-4 rounded-md dark:bg-gray-800">
       <div className="text-xl">
@@ -14,20 +15,20 @@ export default function ThemeCard({theme}: themeItemsProps) {
         <span className="dark:text-gray-300">{theme.descricao}</span>
       </div>
       <div className="flex gap-2">
-        <button>
-            <EditTheme themeID={theme.id}/>
-        </button>
+        <div className="">
+          <EditTheme 
+            themeID={theme.id}
+            updateViewItems={searchThemes}/>
+        </div>
 
-        <button className="flex justify-center items-center bg-gray-300 text-gray-600 dark:text-gray-400 p-2 rounded-full hover:text-red-500 dark:bg-gray-900">
-          <DeleteAction 
-            url={"/temas/"} 
-            item={theme} 
-            text={{
-              title: "Tem certeza que deseja excluir esse tema?", 
-              description: "Ao excluir esse tema, todas os posts relacionados a ele também serão excluidos."
-          }}/>
-        </button>
-
+        <DeleteAction 
+          updateViewItems={searchThemes}
+          url={"/temas/"} 
+          item={theme} 
+          text={{
+            title: "Tem certeza que deseja excluir esse tema?", 
+            description: "Ao excluir esse tema, todas os posts relacionados a ele também serão excluidos."
+        }}/>
       </div>
     </div>
   )

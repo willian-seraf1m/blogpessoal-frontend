@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@/contexts/AuthContext";
 import { search } from "@/services/Service";
 import PostCard from "../Post/PostCard";
-import { PostModalForm } from "../Post/PostModalForm";
-import { Plus } from "lucide-react";
 import { toastAlerta } from "@/utils/toastAlerta";
+import { PostModalForm } from "./PostModalForm";
+import { Plus } from "lucide-react";
 
 
 function CardList() {
@@ -25,7 +25,7 @@ function CardList() {
     }
   }, [token]);
 
-  async function buscarPostagens() {
+  async function searchPostagens() {
     try {
       await search('/postagens', setPosts, {
         headers: {
@@ -41,7 +41,7 @@ function CardList() {
   }
 
   useEffect(() => {
-    buscarPostagens();
+    searchPostagens();
   }, [posts.length]);
 
   return (
@@ -50,15 +50,21 @@ function CardList() {
       <div className="flex justify-between items-center ">
         <h1 className="text-[48px] font-semibold mb-8">Postagens</h1>
         <span className="bg-indigo-500 p-2 flex items-center gap-2 rounded-md">
-          <PostModalForm 
+          <PostModalForm
             textButton="Novo Post"
-            icon={Plus}/>
+            icon={Plus}
+            searchPostagens={searchPostagens}
+          />
         </span>
       </div>
 
       <div id="posts" className="flex gap-3 flex-wrap justify-center">
         {posts.map((post) => {
-          return <PostCard key={post.id} post={post}/>
+          return <PostCard 
+            key={post.id}
+            post={post}
+            searchPostagens={searchPostagens}
+            />
         })}
       </div>
 

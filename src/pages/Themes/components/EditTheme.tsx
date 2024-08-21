@@ -10,15 +10,17 @@ import { AuthContext } from "@/contexts/AuthContext";
 import Theme from "@/models/Theme";
 import { search, update } from "@/services/Service";
 import { toastAlerta } from "@/utils/toastAlerta";
+import { DialogDescription } from "@radix-ui/react-dialog";
 import { Check, Edit2Icon } from "lucide-react"
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 type editThemeProps = {
   themeID: number
+  updateViewItems: () => void
 }
 
-export default function EditItems({themeID}: editThemeProps) {
+export default function EditTheme({themeID, updateViewItems}: editThemeProps) {
   const [tema, setTema] = useState<Theme>({} as Theme);
 
   const navigate = useNavigate();
@@ -59,7 +61,7 @@ export default function EditItems({themeID}: editThemeProps) {
             'Authorization': token
           }
         })
-
+        updateViewItems()
         toastAlerta('Tema atualizado com sucesso', 'sucesso')
 
       } catch (error: unknown) {
@@ -84,12 +86,16 @@ export default function EditItems({themeID}: editThemeProps) {
 
   return (
     <Dialog>
-    <DialogTrigger className="text-gray-600 bg-gray-300 dark:bg-gray-900 dark:text-gray-400 p-2 rounded-full hover:text-indigo-500">
-      <Edit2Icon size={22}/>
+    <DialogTrigger 
+    >
+      <span className="flex p-2 rounded-md bg-gray-300 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+        <Edit2Icon size={22}/>
+      </span>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Editar tema</DialogTitle>
+        <DialogDescription>Digite o tema atualizado:</DialogDescription>
       </DialogHeader>
 
       <form onSubmit={generateNewTheme} className="flex gap-1">
@@ -99,7 +105,9 @@ export default function EditItems({themeID}: editThemeProps) {
           name="descricao"
           onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
           className="w-full p-2 rounded-md dark:bg-gray-800"/>
-          <DialogClose type="submit" className="bg-indigo-500 p-2 rounded-md"><Check/></DialogClose>
+          <DialogClose type="submit" className="bg-indigo-500 p-2 rounded-md">
+            <Check/>
+          </DialogClose>
       </form>
 
     </DialogContent>

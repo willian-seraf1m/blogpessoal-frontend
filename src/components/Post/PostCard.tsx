@@ -1,9 +1,8 @@
 import Post from "@/models/Post"
-import { Edit2Icon, User2Icon} from "lucide-react"
+import { User2Icon} from "lucide-react"
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from "date-fns/locale/pt-BR";
 import DeleteAction from "../DeleteAction";
-import { PostModalForm } from "../Post/PostModalForm";
 
 import {
   Dialog,
@@ -13,13 +12,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { PostEditForm } from "./PostEditForm";
 
 
 interface postCardProps {
   post: Post
+  searchPostagens: () => void
 }
 
-export default function PostCard({post}: postCardProps) {
+export default function PostCard({post, searchPostagens}: postCardProps) {
   const publishedDateRelativeToNow = formatDistanceToNow(post.data, {
     locale: ptBR,
     addSuffix: true,
@@ -45,7 +46,7 @@ export default function PostCard({post}: postCardProps) {
 
       <div className="h-48 border-y bg-gray-100 dark:bg-gray-800 overflow-hidden relative dark:border-gray-800">
         <Dialog>
-          <DialogTrigger className="cursor-pointer text-start">
+          <DialogTrigger className="cursor-pointer text-start w-full">
           <h2 className="font-bold p-3">
           {post.titulo}
           </h2>
@@ -70,23 +71,23 @@ export default function PostCard({post}: postCardProps) {
       </div>
       
       <div className="p-3 flex justify-between items-center">
-        <span className="bg-indigo-500 px-2 py-0 rounded-md inline-block text-sm dark:bg-indigo-500/60">
+        <span className="bg-indigo-500 text-gray-100 px-2 py-0 rounded-md inline-block text-sm dark:bg-indigo-500/60">
           #{post.tema?.descricao}
         </span>
-        <div>
-          <button className=" py-1 px-2 bg-gray-100 rounded-md mr-1 hover:text-indigo-500 duration-200 dark:bg-gray-800">
-            <PostModalForm 
+        <div className="flex gap-1">
+          <span className="flex items-center bg-gray-300 dark:bg-gray-700 p-2 rounded-md">
+            <PostEditForm
               postID={post.id}
-              icon={Edit2Icon}
+              searchPostagens={searchPostagens}
             />
-          </button>
-          <button className="py-1 px-2 bg-gray-100 rounded-md hover:text-red-500 duration-200 dark:bg-gray-800">
-            <DeleteAction
-              url="/postagens/"
-              item={post}
-              text={{title: "Tem certeza que quer deletar esse post?", description: "Essa ação é permanente!"}}
-            />
-          </button>
+          </span>
+
+          <DeleteAction
+            url="/postagens/"
+            item={post}
+            text={{title: "Tem certeza que quer deletar esse post?", description: "Essa ação é permanente!"}}
+            updateViewItems={searchPostagens}
+          />
         </div>
       </div>
     </div>

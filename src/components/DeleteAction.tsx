@@ -20,6 +20,7 @@ import Post from "@/models/Post";
 import { toastAlerta } from "@/utils/toastAlerta";
 
 interface deleteActionProps {
+  updateViewItems: () => void
   url: string;
   item: Theme | Post;
   text: {
@@ -28,10 +29,10 @@ interface deleteActionProps {
   }
 }
 
-export default function DeleteAction({url, item, text}: deleteActionProps) {
+export default function DeleteAction({updateViewItems, url, item, text}: deleteActionProps) {
   const { user } = useContext(AuthContext);
 
-  async function deletePostOrTheme(id: number) {
+  async function deleteItem(id: number) {
     try {
       await deleteItems(url+id, {
           headers: {
@@ -39,6 +40,9 @@ export default function DeleteAction({url, item, text}: deleteActionProps) {
           }
       })
   
+      if(updateViewItems) {
+        updateViewItems()
+      }
       toastAlerta('Apagado com sucesso', 'sucesso')
 
   
@@ -50,7 +54,9 @@ export default function DeleteAction({url, item, text}: deleteActionProps) {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
+      <AlertDialogTrigger 
+        className="bg-gray-300 text-gray-600 dark:bg-gray-700 dark:text-gray-300 p-2 rounded-md"
+      >
           <Trash2Icon size={22}/>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -64,7 +70,7 @@ export default function DeleteAction({url, item, text}: deleteActionProps) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deletePostOrTheme(item.id)}>Excluir</AlertDialogAction>
+          <AlertDialogAction onClick={() => deleteItem(item.id)}>Excluir</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

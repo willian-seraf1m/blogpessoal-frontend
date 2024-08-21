@@ -5,7 +5,11 @@ import { toastAlerta } from "@/utils/toastAlerta";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function ThemeForm() {
+interface themeFormProps {
+  searchThemes: () => void
+}
+
+export default function ThemeForm({searchThemes}: themeFormProps) {
   const [tema, setTema] = useState<Theme>({} as Theme);
 
   const navigate = useNavigate();
@@ -46,6 +50,7 @@ export default function ThemeForm() {
         }
       })
   
+      searchThemes()
       toastAlerta('Tema cadastrado com sucesso','sucesso')
 
     } catch (error: unknown) {
@@ -73,7 +78,7 @@ export default function ThemeForm() {
       <input 
         type="text"
         name="descricao"
-        value={tema.descricao}
+        value={tema.descricao || ""}
         onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
         placeholder="Criar novo tema" 
         className="bg-gray-200 w-full p-4 rounded-md dark:bg-gray-800"/>
