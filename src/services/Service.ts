@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://blogpessoal-7xbn.onrender.com/'
+  baseURL: import.meta.env.VITE_API_URL
 })
 
 export const registerUser = async(url: string, dados: Object, setDados: Function) => {

@@ -82,7 +82,7 @@ export default function Login() {
       </div>
 
       <div className="bg-gradient-to-r from-violet-500 to-indigo-600 text-gray-100 basis-1/2 text-[48px] font-bold flex justify-center items-center">
-        Bem Vindo!
+        Faça o seu login
       </div>
     </div>
   )

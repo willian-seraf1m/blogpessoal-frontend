@@ -44,13 +44,13 @@ export default function Themes() {
   return (
     <div className="bg-gray-300 dark:bg-gray-900">
       <Header/>
-      <div className="h-[84vh]">
+      <div className="h-[84vh] p-4">
         <ThemeForm searchThemes={searchThemes}/>
         
         <section className="max-w-[1000px] mx-auto">
           <h1 className="text-3xl dark:text-gray-200 mb-6">Temas</h1>
 
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex justify-center gap-2 flex-wrap">
             {
               (themes.length == 0) ?
               <div className="flex gap-2 justify-center items-center text-xl text-gray-500 py-6 px-8 border border-gray-700 rounded-md w-full">

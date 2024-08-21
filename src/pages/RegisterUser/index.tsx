@@ -71,7 +71,7 @@ export default function RegisterUser() {
   return (
     <div className="bg-gray-200 w-full h-[100vh] flex">
       <div className="bg-gradient-to-r from-violet-500 to-indigo-600 text-gray-100 basis-1/2 text-[48px] font-bold flex justify-center items-center">
-        Bem Vindo!
+        Crie uma conta
       </div>
 
       <div className="bg-gray-200 flex basis-1/2 flex-col justify-center items-center w-full p-4 dark:bg-gray-900">
