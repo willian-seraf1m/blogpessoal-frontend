@@ -1,7 +1,7 @@
 import Post from "@/models/Post"
 import { User2Icon} from "lucide-react"
 import { formatDistanceToNow } from 'date-fns';
-import { ptBR } from "date-fns/locale/pt-BR";
+import { ptBR } from "date-fns/locale";
 import DeleteAction from "../DeleteAction";
 
 import {
