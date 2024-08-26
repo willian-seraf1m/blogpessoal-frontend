@@ -47,8 +47,8 @@ function CardList() {
   return (
     <section id="posts" className="max-w-[1000px] mx-auto py-8 px-8">
 
-      <div className="flex justify-between items-center ">
-        <h1 className="text-[48px] font-semibold mb-8">Postagens</h1>
+      <div className="flex justify-between items-center flex-wrap">
+        <h1 className="text-[48px] font-semibold text-gray-600 dark:text-gray-100">Postagens</h1>
         <span className="bg-indigo-500 p-2 flex items-center gap-2 rounded-md">
           <PostModalForm
             textButton="Novo Post"
@@ -58,7 +58,7 @@ function CardList() {
         </span>
       </div>
 
-      <div id="posts" className="flex gap-3 flex-wrap justify-center">
+      <div id="posts" className="flex gap-3 flex-wrap justify-center mt-8">
         {posts.map((post) => {
           return <PostCard 
             key={post.id}

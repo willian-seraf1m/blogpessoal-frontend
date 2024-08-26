@@ -69,19 +69,19 @@ export default function RegisterUser() {
 
 
   return (
-    <div className="bg-gray-200 w-full h-[100vh] flex">
-      <div className="bg-gradient-to-r from-violet-500 to-indigo-600 text-gray-100 basis-1/2 text-[48px] font-bold flex justify-center items-center">
+    <div className="text-sm bg-gray-200 w-full h-[100vh] flex">
+      <div className="hidden bg-gradient-to-r from-violet-500 to-indigo-600 text-gray-100 basis-1/2 text-[48px] font-bold xl:flex justify-center items-center">
         Crie uma conta
       </div>
 
-      <div className="bg-gray-200 flex basis-1/2 flex-col justify-center items-center w-full p-4 dark:bg-gray-900">
+      <div className="xl:basis-1/2 bg-gray-200 flex justify-center items-center w-full p-4 dark:bg-gray-900">
         <form
           onSubmit={registerNewUser}
-          className="bg-gray-300 py-12 px-6 rounded-md flex flex-col w-[560px] dark:bg-gray-800">
+          className="bg-gray-300 py-12 px-6 rounded-md flex flex-col w-[480px] dark:bg-gray-800">
           
           <h1 className="text-[32px] font-bold text-center mb-4">Cadastre-se</h1>
 
-          <label htmlFor="usuario">Nome</label>
+          <label htmlFor="nome">Nome</label>
           <input 
             type="text" 
             id="nome"
@@ -91,7 +91,7 @@ export default function RegisterUser() {
             className="mb-4 py-2 px-4 rounded-md dark:bg-gray-900"
           />
 
-          <label htmlFor="usuario">Usuario</label>
+          <label htmlFor="usuario">Usuario {"(email)"}</label>
           <input 
             type="text" 
             id="usuario"
@@ -101,7 +101,7 @@ export default function RegisterUser() {
             className="mb-4 py-2 px-4 rounded-md dark:bg-gray-900"
           />
 
-          <label htmlFor="">Senha</label>
+          <label htmlFor="senha">Senha</label>
           <input
             type="password" 
             name="senha" 
@@ -110,7 +110,7 @@ export default function RegisterUser() {
             onChange={(e: ChangeEvent<HTMLInputElement>) => updateState(e)}
             className="mb-4 py-2 px-4 rounded-md dark:bg-gray-900"/>
 
-          <label htmlFor="">Confirme sua senha</label>
+          <label htmlFor="confirmPassword">Confirme sua senha</label>
           <input
             type="password" 
             name="confirmPassword" 

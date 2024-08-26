@@ -27,7 +27,7 @@ export default function PostCard({post, searchPostagens}: postCardProps) {
   })
 
   return (
-    <div className="bg-indigo-300 border border-indigo-300 rounded-md flex-1 max-w-[400px] min-w-[300px] dark:bg-gray-900 dark:border-gray-700">
+    <div className="bg-indigo-300 border border-indigo-300 rounded-md flex-1 max-w-[400px] min-w-[300px] text-gray-600 dark:text-gray-100 dark:bg-gray-900 dark:border-gray-700 shadow-md shadow-gray-900/20">
       <div className="flex gap-2 justify-between items-center p-3">
         <div className="flex gap-2 items-center">
           <span>

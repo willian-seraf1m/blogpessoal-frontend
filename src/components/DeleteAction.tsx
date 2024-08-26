@@ -57,7 +57,7 @@ export default function DeleteAction({updateViewItems, url, item, text}: deleteA
       <AlertDialogTrigger 
         className="bg-gray-300 text-gray-600 dark:bg-gray-700 dark:text-gray-300 p-2 rounded-md"
       >
-          <Trash2Icon size={22}/>
+          <Trash2Icon size={22} className="hover:text-red-400 transition"/>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

@@ -35,12 +35,11 @@ export default function Login() {
   }
 
   return (
-    <div className="bg-gray-200 w-full h-[100vh] flex">
-      <div className="bg-gray-200 flex basis-1/2 flex-col justify-center items-center w-full p-4 dark:bg-gray-900">
+      <div className="text-sm bg-gray-200 flex justify-center items-center w-full p-4 dark:bg-gray-900 h-[100vh]">
 
         <form 
           onSubmit={login} 
-          className="bg-gray-300 py-12 px-6 rounded-xl flex flex-col w-[560px] dark:bg-gray-800">
+          className="bg-gray-300 py-12 px-6 rounded-xl flex flex-col w-[480px] dark:bg-gray-800">
 
           <h1 className="text-[32px] font-bold text-center mb-4">Login</h1>
           <label htmlFor="usuario">Usuario</label>
@@ -79,11 +78,6 @@ export default function Login() {
           
           <p className="text-center">Não tem uma conta? <Link to="/register" className="text-indigo-500 dark:text-indigo-400 font-semibold">Cadastre-se</Link></p>
         </form>
-      </div>
-
-      <div className="bg-gradient-to-r from-violet-500 to-indigo-600 text-gray-100 basis-1/2 text-[48px] font-bold flex justify-center items-center">
-        Faça o seu login
-      </div>
     </div>
   )
 }

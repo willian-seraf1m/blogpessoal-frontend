@@ -120,8 +120,8 @@ export function PostModalForm({icon: Icon, textButton, postID, searchPostagens}:
   return (
     <Dialog>
       <DialogTrigger>
-        <span className="flex gap-2 items-center">
-          {textButton}
+        <span className="flex gap-2 items-center text-white">
+          <span className="hidden sm:block">{textButton}</span>
           {Icon && <Icon />}
         </span>
       </DialogTrigger>

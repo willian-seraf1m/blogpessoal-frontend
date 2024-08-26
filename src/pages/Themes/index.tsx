@@ -44,7 +44,7 @@ export default function Themes() {
   return (
     <div className="bg-gray-300 dark:bg-gray-900">
       <Header/>
-      <div className="h-[84vh] p-4">
+      <div className="min-h-[100vh] p-4">
         <ThemeForm searchThemes={searchThemes}/>
         
         <section className="max-w-[1000px] mx-auto">

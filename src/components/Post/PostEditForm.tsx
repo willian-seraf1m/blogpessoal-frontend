@@ -127,8 +127,8 @@ export function PostEditForm({ postID, searchPostagens}: postModalFromProps) {
   return (
     <Dialog>
       <DialogTrigger>
-        <span className="text-gray-600 flex gap-2 justify-center items-center dark:text-gray-300">
-          <Edit2Icon/>
+        <span className="flex gap-2 justify-center items-center text-gray-600 dark:text-gray-300">
+          <Edit2Icon className="hover:text-indigo-400 transition"/>
         </span>
       </DialogTrigger>
       <DialogContent>

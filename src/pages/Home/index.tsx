@@ -14,10 +14,10 @@ export default function Home() {
     <div>
       <Header/>
 
-      <main className="bg-gray-200 dark:bg-gray-800">
-        <section className=" bg-gradient-to-r from-violet-500 to-indigo-500 text-gray-200">
-          <div className="max-w-[1000px] px-8 mx-auto flex justify-between items-center h-96">
-            <div>
+      <main className="bg-gray-200 dark:bg-gray-800 min-h-[100vh]">
+        <section className="bg-gradient-to-r from-violet-500 to-indigo-500 text-gray-200">
+          <div className="max-w-[1000px] px-8 mx-auto flex justify-center items-center h-96 md:justify-between">
+            <div className="text-center md:text-start">
               <h1 className="text-[48px] font-semibold">
                 Olá, {user.nome.split(" ")[0]}
               </h1>
@@ -29,7 +29,9 @@ export default function Home() {
               </button>
             </div>
 
-            <Lottie animationData={Animation} className="w-[420px]"/>
+            <Lottie 
+              animationData={Animation} 
+              className="w-[420px] hidden md:block"/>
           </div>
         </section>
 
